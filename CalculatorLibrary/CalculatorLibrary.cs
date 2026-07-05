@@ -6,6 +6,7 @@ namespace CalculatorLibrary
     public class Calculator
     {
         JsonWriter writer;
+        public List<OperationRecord> history = new();
         public Calculator()
         {
             StreamWriter logFile = File.CreateText("calculatorlog.json");
@@ -89,6 +90,13 @@ namespace CalculatorLibrary
                     break;
 
             }
+            history.Add(new OperationRecord
+            {
+                Operand1 = num1,
+                Operand2 = num2,
+                Operation = op,
+                Result = res
+            });
             writer.WritePropertyName("Result");
             writer.WriteValue(res);
             writer.WriteEndObject();
@@ -101,5 +109,40 @@ namespace CalculatorLibrary
             writer.Close();
         }
 
+        public void FetchHistory()
+        {
+            if (history.Count == 0)
+            {
+                Console.WriteLine("No history available yet.");
+                return;
+            }
+
+            Console.WriteLine("Calculator History:");
+            Console.WriteLine("-------------------");
+
+            for (int i = 0; i < history.Count; i++)
+            {
+                OperationRecord record = history[i];
+
+                if (new List<string>() { "a", "d", "m", "d", "p" }.Contains(record.Operation))
+                    Console.WriteLine(
+                        $"{i + 1}. {record.Operation}: " +
+                        $"{record.Operand1}, {record.Operand2} = {record.Result}"
+                    );
+                else
+                    Console.WriteLine(
+                        $"{i + 1}. {record.Operation}: " +
+                        $"{record.Operand1} = {record.Result}"
+                    );
+            }
+        }
+    }
+
+    public class OperationRecord
+    {
+        public double Operand1 { get; set; }
+        public double? Operand2 { get; set; }
+        public string Operation { get; set; } = "";
+        public double Result { get; set; }
     }
 }

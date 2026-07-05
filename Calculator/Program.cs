@@ -39,17 +39,30 @@ namespace CodeReviews_Console_Calculator
                 Console.WriteLine("\tcos - Cos");
                 Console.WriteLine("\ttan - Tan");
                 // above operations take 1
-                Console.Write("Your option? ");
+                System.Console.WriteLine("\n\th - Show history");
+                System.Console.WriteLine("\n\tc - Clear history");
+                Console.Write("\n\nYour option? ");
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan)$"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan|h|c)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
                 else
                 {
+                    if (op == "h")
+                    {
+                        calculator.FetchHistory();
+                        continue;
+                    }
+                    if (op == "c")
+                    {
+                        calculator.history.Clear();
+                        continue;
+                    }
+
                     Console.Write("Type a number, and then press Enter: ");
                     numInput1 = Console.ReadLine();
 
