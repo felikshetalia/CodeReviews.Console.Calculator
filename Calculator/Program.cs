@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-
+using CalculatorLibrary;
 namespace CodeReviews_Console_Calculator
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Calculator calculator = new Calculator();
             bool endApp = false;
             // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
@@ -61,7 +62,7 @@ namespace CodeReviews_Console_Calculator
                 {
                     try
                     {
-                        result = Calculator.PerformOperation(cleanNum1, cleanNum2, op);
+                        result = calculator.PerformOperation(cleanNum1, cleanNum2, op);
                         if (double.IsNaN(result))
                         {
                             Console.WriteLine("This operation will result in a mathematical error.\n");
