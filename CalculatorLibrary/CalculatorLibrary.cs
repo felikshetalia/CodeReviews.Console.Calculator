@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Newtonsoft.Json;  
+using Newtonsoft.Json;
 
 namespace CalculatorLibrary
 {
@@ -16,7 +16,7 @@ namespace CalculatorLibrary
             writer.WritePropertyName("Operations");
             writer.WriteStartArray();
         }
-        public double PerformOperation(double num1, double num2, string op)
+        public double PerformOperation(string op, double num1, double num2 = 0.0)
         {
             double res = double.NaN;
             writer.WriteStartObject();
@@ -63,6 +63,31 @@ namespace CalculatorLibrary
                         writer.WriteValue("Divide");
                     }
                     break;
+                case "p":
+                    res = Math.Pow(num1, num2);
+                    writer.WriteValue("Power");
+                    break;
+                case "sr":
+                    res = Math.Sqrt(num1);
+                    writer.WriteValue("Square root");
+                    break;
+                case "ten":
+                    res = Math.Pow(10, num1);
+                    writer.WriteValue("10^x");
+                    break;
+                case "sin":
+                    res = Math.Sin(num1);
+                    writer.WriteValue("Sin");
+                    break;
+                case "cos":
+                    res = Math.Cos(num1);
+                    writer.WriteValue("Cos");
+                    break;
+                case "tan":
+                    res = Math.Tan(num1);
+                    writer.WriteValue("Tan");
+                    break;
+
             }
             writer.WritePropertyName("Result");
             writer.WriteValue(res);

@@ -1,0 +1,16 @@
+{
+  "Operations": [
+    {
+      "Operand1": 90.0,
+      "Operand2": 0.0,
+      "Operation": "Cos",
+      "Result": -0.4480736161291701
+    },
+    {
+      "Operand1": 345.0,
+      "Operand2": 0.0,
+      "Operation": "Square root",
+      "Result": 18.57417562100671
+    }
+  ]
+}

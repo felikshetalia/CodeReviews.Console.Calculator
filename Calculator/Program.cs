@@ -13,35 +13,17 @@ namespace CodeReviews_Console_Calculator
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
+            int usageCounter = 0;
+
             while (!endApp)
             {
                 // Declare variables and set to empty.
                 // Use Nullable types (with ?) to match type of System.Console.ReadLine
                 string? numInput1 = "";
                 string? numInput2 = "";
-                double result = 0;
-
-                // Ask the user to type the first number.
-                Console.Write("Type a number, and then press Enter: ");
-                numInput1 = Console.ReadLine();
-
                 double cleanNum1 = 0;
-                while (!double.TryParse(numInput1, out cleanNum1))
-                {
-                    Console.Write("This is not valid input. Please enter a numeric value: ");
-                    numInput1 = Console.ReadLine();
-                }
-
-                // Ask the user to type the second number.
-                Console.Write("Type another number, and then press Enter: ");
-                numInput2 = Console.ReadLine();
-
                 double cleanNum2 = 0;
-                while (!double.TryParse(numInput2, out cleanNum2))
-                {
-                    Console.Write("This is not valid input. Please enter a numeric value: ");
-                    numInput2 = Console.ReadLine();
-                }
+                double result = 0;
 
                 // Ask the user to choose an operator.
                 Console.WriteLine("Choose an operator from the following list:");
@@ -49,35 +31,69 @@ namespace CodeReviews_Console_Calculator
                 Console.WriteLine("\ts - Subtract");
                 Console.WriteLine("\tm - Multiply");
                 Console.WriteLine("\td - Divide");
+                Console.WriteLine("\tp - Power");
+                // above operations take 2 arguments
+                Console.WriteLine("\tsr - Square root");
+                Console.WriteLine("\tten - 10^x");
+                Console.WriteLine("\tsin - Sin");
+                Console.WriteLine("\tcos - Cos");
+                Console.WriteLine("\ttan - Tan");
+                // above operations take 1
                 Console.Write("Your option? ");
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d)$"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
                 else
                 {
+                    Console.Write("Type a number, and then press Enter: ");
+                    numInput1 = Console.ReadLine();
+
+                    while (!double.TryParse(numInput1, out cleanNum1))
+                    {
+                        Console.Write("This is not valid input. Please enter a numeric value: ");
+                        numInput1 = Console.ReadLine();
+                    }
+                    // if the operation takes 2, get another number
+                    if (Regex.IsMatch(op, "^(a|s|m|d|p)$"))
+                    {
+
+                        Console.Write("Type another number, and then press Enter: ");
+                        numInput2 = Console.ReadLine();
+
+                        while (!double.TryParse(numInput2, out cleanNum2))
+                        {
+                            Console.Write("This is not valid input. Please enter a numeric value: ");
+                            numInput2 = Console.ReadLine();
+                        }
+                    }
                     try
                     {
-                        result = calculator.PerformOperation(cleanNum1, cleanNum2, op);
+                        result = calculator.PerformOperation(op, cleanNum1, cleanNum2);
                         if (double.IsNaN(result))
                         {
                             Console.WriteLine("This operation will result in a mathematical error.\n");
                         }
-                        else Console.WriteLine("Your result: {0:0.##}\n", result);
+                        else
+                        {
+                            Console.WriteLine("Your result: {0:0.##}\n", result);
+                            usageCounter++;
+                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("Oh no! An exception occurred trying to do the math.\n - Details: " + e.Message);
                     }
                 }
-                Console.WriteLine("------------------------\n");
+                Console.WriteLine("------------------------");
 
                 // Wait for the user to respond before closing.
-                Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+                System.Console.WriteLine("Calculator usage: " + usageCounter);
+                Console.Write("\nPress 'n' and Enter to close the app, or press any other key and Enter to continue: ");
                 if (Console.ReadLine() == "n") endApp = true;
 
                 Console.WriteLine("\n"); // Friendly linespacing.
