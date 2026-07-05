@@ -82,6 +82,7 @@ namespace CodeReviews_Console_Calculator
 
                 Console.WriteLine("\n"); // Friendly linespacing.
             }
+            calculator.Finish();
             return;
         }
     }
