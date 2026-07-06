@@ -1,22 +1,14 @@
 {
   "Operations": [
     {
-      "Operand1": 100.0,
-      "Operand2": 67.0,
-      "Operation": "Add",
-      "Result": 167.0
-    },
-    {
-      "Operand1": 24.0,
+      "Operand1": 5.0,
       "Operand2": 0.0,
-      "Operation": "Square root",
-      "Result": 4.898979485566356
-    },
-    {
-      "Operand1": 4.0,
-      "Operand2": 0.0,
-      "Operation": "10^x",
-      "Result": 10000.0
+      "Operation": {
+        "Operand1": 5.0,
+        "Operand2": 0.0,
+        "Operation": "Divide",
+        "Result": 2.5
+      }
     }
   ]
 }

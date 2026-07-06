@@ -25,28 +25,12 @@ namespace CodeReviews_Console_Calculator
                 double cleanNum2 = 0;
                 double result = 0;
 
-                // Ask the user to choose an operator.
-                Console.WriteLine("Choose an operator from the following list:");
-                Console.WriteLine("\ta - Add");
-                Console.WriteLine("\ts - Subtract");
-                Console.WriteLine("\tm - Multiply");
-                Console.WriteLine("\td - Divide");
-                Console.WriteLine("\tp - Power");
-                // above operations take 2 arguments
-                Console.WriteLine("\tsr - Square root");
-                Console.WriteLine("\tten - 10^x");
-                Console.WriteLine("\tsin - Sin");
-                Console.WriteLine("\tcos - Cos");
-                Console.WriteLine("\ttan - Tan");
-                // above operations take 1
-                System.Console.WriteLine("\n\th - Show history");
-                System.Console.WriteLine("\n\tc - Clear history");
-                Console.Write("\n\nYour option? ");
+                ShowMenuLines();
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan|h|c)$"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan|h|c|ans)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
@@ -68,7 +52,22 @@ namespace CodeReviews_Console_Calculator
 
                     while (!double.TryParse(numInput1, out cleanNum1))
                     {
-                        Console.Write("This is not valid input. Please enter a numeric value: ");
+                        if (numInput1 == "ans")
+                        {
+                            try
+                            {
+                                cleanNum1 = calculator.history[calculator.history.Count - 1].Result;
+                                break;
+
+                            }
+                            catch (ArgumentOutOfRangeException)
+                            {
+                                Console.WriteLine("The history of results is empty. Make some calculations with real numbers first.");
+                                System.Console.WriteLine("Enter a number then press enter");
+                            }
+                        }
+                        else
+                            Console.Write("This is not valid input. Please enter a numeric value: ");
                         numInput1 = Console.ReadLine();
                     }
                     // if the operation takes 2, get another number
@@ -80,7 +79,21 @@ namespace CodeReviews_Console_Calculator
 
                         while (!double.TryParse(numInput2, out cleanNum2))
                         {
-                            Console.Write("This is not valid input. Please enter a numeric value: ");
+                            if (numInput2 == "ans")
+                            {
+                                try
+                                {
+                                    cleanNum2 = calculator.history[calculator.history.Count - 1].Result;
+                                    break;
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                    Console.WriteLine("The history of results is empty. Make some calculations with real numbers first.");
+                                    System.Console.WriteLine("Enter a number then press enter");
+                                }
+                            }
+                            else
+                                Console.Write("This is not valid input. Please enter a numeric value: ");
                             numInput2 = Console.ReadLine();
                         }
                     }
@@ -113,6 +126,28 @@ namespace CodeReviews_Console_Calculator
             }
             calculator.Finish();
             return;
+        }
+
+        static void ShowMenuLines()
+        {
+            // Ask the user to choose an operator.
+            Console.WriteLine("Choose an operator from the following list:");
+            Console.WriteLine("\ta - Add");
+            Console.WriteLine("\ts - Subtract");
+            Console.WriteLine("\tm - Multiply");
+            Console.WriteLine("\td - Divide");
+            Console.WriteLine("\tp - Power");
+            // above operations take 2 arguments
+            Console.WriteLine("\tsr - Square root");
+            Console.WriteLine("\tten - 10^x");
+            Console.WriteLine("\tsin - Sin");
+            Console.WriteLine("\tcos - Cos");
+            Console.WriteLine("\ttan - Tan");
+            // above operations take 1
+            System.Console.WriteLine("\n\th - Show history");
+            System.Console.WriteLine("\tc - Clear history");
+            System.Console.WriteLine("\tans - Use the latest result");
+            Console.Write("\n\nYour option? ");
         }
     }
 }

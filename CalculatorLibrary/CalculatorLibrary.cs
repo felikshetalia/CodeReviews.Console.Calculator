@@ -31,17 +31,14 @@ namespace CalculatorLibrary
             {
                 case "a":
                     res = num1 + num2;
-                    //Trace.WriteLine(String.Format("{0} + {1} = {2}", num1, num2, res));
                     writer.WriteValue("Add");
                     break;
                 case "s":
                     res = num1 - num2;
-                    //Trace.WriteLine(String.Format("{0} - {1} = {2}", num1, num2, res));
                     writer.WriteValue("Subtract");
                     break;
                 case "m":
                     res = num1 * num2;
-                    //Trace.WriteLine(String.Format("{0} * {1} = {2}", num1, num2, res));
                     writer.WriteValue("Multiply");
                     break;
                 case "d":
@@ -49,7 +46,6 @@ namespace CalculatorLibrary
                     {
                         if (num2 == 0) throw new DivideByZeroException();
                         res = num1 / num2;
-                        //Trace.WriteLine(String.Format("{0} / {1} = {2}", num1, num2, res));
                         writer.WriteValue("Divide");
                     }
                     catch (DivideByZeroException)
@@ -60,7 +56,6 @@ namespace CalculatorLibrary
                             num2 = Convert.ToDouble(Console.ReadLine());
                         }
                         res = num1 / num2;
-                        //Trace.WriteLine(String.Format("{0} / {1} = {2}", num1, num2, res));
                         writer.WriteValue("Divide");
                     }
                     break;
