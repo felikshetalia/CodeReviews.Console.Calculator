@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using CalculatorLibrary;
 namespace CodeReviews_Console_Calculator
 {
     class Program
     {
+        public const double pi = 3.14;
         static void Main(string[] args)
         {
             Calculator calculator = new Calculator();
@@ -30,7 +32,7 @@ namespace CodeReviews_Console_Calculator
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan|h|c|ans)$"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|p|sr|ten|sin|cos|tan|h|c)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
@@ -46,6 +48,10 @@ namespace CodeReviews_Console_Calculator
                         calculator.history.Clear();
                         continue;
                     }
+
+                    System.Console.WriteLine("------ SHORTCUTS ------");
+                    System.Console.WriteLine("ans - Use the latest result");
+                    System.Console.WriteLine("pi - 3.14\n");
 
                     Console.Write("Type a number, and then press Enter: ");
                     numInput1 = Console.ReadLine();
@@ -65,6 +71,11 @@ namespace CodeReviews_Console_Calculator
                                 Console.WriteLine("The history of results is empty. Make some calculations with real numbers first.");
                                 System.Console.WriteLine("Enter a number then press enter");
                             }
+                        }
+                        else if (numInput1 == "pi")
+                        {
+                            cleanNum1 = pi;
+                            break;
                         }
                         else
                             Console.Write("This is not valid input. Please enter a numeric value: ");
@@ -91,6 +102,11 @@ namespace CodeReviews_Console_Calculator
                                     Console.WriteLine("The history of results is empty. Make some calculations with real numbers first.");
                                     System.Console.WriteLine("Enter a number then press enter");
                                 }
+                            }
+                            else if (numInput2 == "pi")
+                            {
+                                cleanNum2 = pi;
+                                break;
                             }
                             else
                                 Console.Write("This is not valid input. Please enter a numeric value: ");
@@ -146,7 +162,7 @@ namespace CodeReviews_Console_Calculator
             // above operations take 1
             System.Console.WriteLine("\n\th - Show history");
             System.Console.WriteLine("\tc - Clear history");
-            System.Console.WriteLine("\tans - Use the latest result");
+
             Console.Write("\n\nYour option? ");
         }
     }
